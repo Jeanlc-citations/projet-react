@@ -1,19 +1,24 @@
-/* App.jsx */
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Accueil from "./pages/Accueil";
+import Dates from "./pages/Dates";
+import Quiz from "./pages/Quiz";
+import Footer from './components/footer.jsx';
+import "./components/style.css";
 
-export default function App() {
+function App() {
   return (
-    <div id="dog-card">
-      <img
-        id="dog-picture"
-        src="https://images.pexels.com/photos/1490908/pexels-photo-1490908.jpeg"
-        alt="Dog"
-      />
-      <div id="dog-description">
-        <h3>Rex</h3>
-        <p className="dog-description-line">Age: 3 years</p>
-        <p className="dog-description-line">Breed: Golden Retriever</p>
-      </div>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+        <Route path="/dates" element={<Dates />} />
+        <Route path="/quiz" element={<Quiz />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
-};
+}
+
+export default App;
