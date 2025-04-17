@@ -6,7 +6,7 @@ function FlashcardList() {
   const [periodFilter, setPeriodFilter] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState("");
   const [search, setSearch] = useState("");
-  const [isChrono, setIsChrono] = useState(false); // ✅ nouveau : case à cocher
+  const [isChrono, setIsChrono] = useState(false); 
 
   useEffect(() => {
     fetch('/data/Events.json')
@@ -14,7 +14,6 @@ function FlashcardList() {
       .then(data => {
         setEvents(data);
       })
-      .catch(err => console.error("❌ Erreur fetch :", err));
   }, []);
 
   const parseDate = (str) => {
@@ -33,7 +32,6 @@ function FlashcardList() {
       event.title.toLowerCase().includes(search.toLowerCase())
     );
 
-  // ✅ Tri uniquement si la case est cochée
   const displayedEvents = [...filteredEvents];
   if (isChrono) {
     displayedEvents.sort((a, b) => parseDate(a.date) - parseDate(b.date));
@@ -45,7 +43,7 @@ function FlashcardList() {
     <div>
       <h1 className="title">Toutes les dates</h1>
 
-      {/* Barre de recherche centrée */}
+      {/* Barre de recherche dates */}
       <div style={{ textAlign: "center", marginBottom: "10px" }}>
         <input
           type="text"
@@ -88,7 +86,7 @@ function FlashcardList() {
           <option value="Difficile">Difficile</option>
         </select>
 
-        {/* ✅ case à cocher */}
+        {/* case à cocher - tri des cartes */}
         <label style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <input
             type="checkbox"
@@ -99,7 +97,7 @@ function FlashcardList() {
         </label>
       </div>
 
-      {/* Liste des flashcards */}
+      {/* flashcards */}
       <div className="flashcards-container">
         {displayedEvents.map(event => (
           <Flashcard key={event.id} event={event} />

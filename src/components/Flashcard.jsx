@@ -5,7 +5,7 @@ const Flashcard = ({ event }) => {
 
   return (
     <div
-      className={`flashcard ${flipped ? "flipped" : ""}`}
+      className={`flashcard ${flipped ? "flipped" : ""} fade-in`}
       onClick={() => setFlipped(!flipped)}
     >
       <div className="flashcard-front">

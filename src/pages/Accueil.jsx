@@ -17,7 +17,6 @@ function Accueil() {
     fetch('/data/Events.json')
       .then(res => res.json())
       .then(data => setAllEvents(data))
-      .catch(err => console.error("❌ Erreur fetch Accueil :", err));
   }, []);
 
   useEffect(() => {
@@ -55,8 +54,9 @@ function Accueil() {
       <p style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto", fontSize: "1.1rem" }}>
         Histoire de dates c'est LE site pour apprendre les dates de l'Histoire de France tout en s'amusant. C'est comme Assassin's Creed, sauf que vous apprenez vraiment des choses. Nous n'avons qu'une promesse : vous permettre d'impressionner votre crush en date avec les dates de l'Histoire.
       </p>
-    <br></br>
-      {/* Filtres et actions */}
+      <br />
+
+      {/* Filtres */}
       <div style={{ textAlign: "center", margin: "1.5rem 0" }}>
         <label>
           Période :
@@ -73,14 +73,14 @@ function Accueil() {
         </label>
 
         <button onClick={pickRandomEvent} style={{ marginLeft: "1rem" }}>
-          Événement au hasard 🎲
+          Événement au hasard
         </button>
 
         <button
           onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
           style={{ marginLeft: "1rem" }}
         >
-          {showFavoritesOnly ? "Voir tous les événements 📜" : "Voir les favoris ❤️"}
+          {showFavoritesOnly ? "Voir tous les événements" : "Voir les favoris"}
         </button>
       </div>
 
@@ -125,7 +125,7 @@ function Accueil() {
         ))}
       </div>
 
-      {/* Modal d'affichage de l'événement */}
+      {/* carte de la date choisie */}
       {selectedEvent && (
         <div style={{
           position: "fixed",
@@ -140,13 +140,8 @@ function Accueil() {
         }}
           onClick={() => setSelectedEvent(null)}
         >
-          <div style={{
-            background: "#fff",
-            padding: "2rem",
-            borderRadius: "12px",
-            maxWidth: "500px",
-            textAlign: "center"
-          }}
+          <div
+            className="date-card"
             onClick={(e) => e.stopPropagation()}
           >
             <img

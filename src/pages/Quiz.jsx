@@ -43,10 +43,12 @@ function Quiz() {
       <div style={{ textAlign: "center", marginTop: "50px" }}>
         <h2>Score final : {score}/20</h2>
         <p>
-          {score >= 18 ? "Historien en herbe !" :
-            score >= 12 ? "Très bon !" :
-            score >= 6 ? "Pas mal !" :
-            "Encore un effort !"}
+          {
+            score == 20 ? "Le GOAT !" :
+            score >= 15 ? "Champion !" :
+            score >= 10 ? "Tu te débrouilles bien !" :
+            score >= 5 ? "Va falloir faire mieux !" :
+            "Gros nul !"}
         </p>
         <button onClick={restartQuiz} style={{ marginTop: "20px" }}>
           Rejouer 🔄
