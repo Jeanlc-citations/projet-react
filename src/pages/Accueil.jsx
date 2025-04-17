@@ -7,25 +7,23 @@ function Accueil() {
   const [allEvents, setAllEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
-  // Chargement des données au montage
+  const parseDate = (str) => parseInt(str) || 0; // ✅ pour bien trier les dates
+
   useEffect(() => {
     const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(storedFavs);
 
     fetch('/data/Events.json')
       .then(res => res.json())
-      .then(data => {
-        setAllEvents(data);
-      })
+      .then(data => setAllEvents(data))
       .catch(err => console.error("❌ Erreur fetch Accueil :", err));
   }, []);
 
-  // Mise à jour des événements filtrés
   useEffect(() => {
     const filtered = allEvents
       .filter(event => ["Facile", "Moyen"].includes(event.difficulty))
       .filter(event => (periodFilter ? event.period === periodFilter : true))
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
+      .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
     setImportantEvents(filtered);
   }, [periodFilter, allEvents]);
@@ -51,33 +49,38 @@ function Accueil() {
     <div>
       <h2>Frise Chronologique</h2>
 
-      {/* FILTRE DE PÉRIODE */}
-      <label>
-        Période :
-        <select onChange={(e) => setPeriodFilter(e.target.value)}>
-          <option value="">Toutes</option>
-          <option value="Antiquité">Antiquité</option>
-          <option value="Moyen-Âge">Moyen-Âge</option>
-          <option value="Renaissance">Renaissance</option>
-          <option value="Révolution">Révolution</option>
-          <option value="Empire">Empire</option>
-          <option value="Époque moderne">Époque moderne</option>
-          <option value="Époque contemporaine">Époque contemporaine</option>
-        </select>
-      </label>
+      {/* Filtres */}
+      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+        <label>
+          Période :
+          <select onChange={(e) => setPeriodFilter(e.target.value)} style={{ marginLeft: "8px" }}>
+            <option value="">Toutes</option>
+            <option value="Antiquité">Antiquité</option>
+            <option value="Moyen-Âge">Moyen-Âge</option>
+            <option value="Renaissance">Renaissance</option>
+            <option value="Révolution">Révolution</option>
+            <option value="Empire">Empire</option>
+            <option value="Époque moderne">Époque moderne</option>
+            <option value="Époque contemporaine">Époque contemporaine</option>
+          </select>
+        </label>
 
-      <button onClick={pickRandomEvent} style={{ marginLeft: "1rem" }}>
-        Événement au hasard 🎲
-      </button>
+        <button onClick={pickRandomEvent} style={{ marginLeft: "1rem" }}>
+          Événement au hasard 🎲
+        </button>
+      </div>
 
-      {/* FRISE */}
+      {/* FRISE AMÉLIORÉE */}
       <div style={{
+        position: "relative",
         display: "flex",
+        alignItems: "center",
         overflowX: "auto",
-        padding: "1rem 0",
-        borderBottom: "1px solid #ccc",
-        gap: "20px",
-        marginTop: "1rem"
+        padding: "2rem 1rem",
+        margin: "1rem auto",
+        maxWidth: "100%",
+        borderTop: "3px solid #b59144", // ligne principale
+        gap: "40px"
       }}>
         {importantEvents.map(event => (
           <div
@@ -91,13 +94,20 @@ function Accueil() {
             }}
           >
             <div style={{
-              width: "14px",
-              height: "14px",
-              backgroundColor: favorites.includes(event.id) ? "#c92a2a" : "#333",
+              width: "18px",
+              height: "18px",
+              backgroundColor: favorites.includes(event.id) ? "#c92a2a" : "#5c2a29",
+              border: "2px solid #fff",
               borderRadius: "50%",
-              margin: "0 auto"
+              boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+              margin: "0 auto",
+              transition: "transform 0.2s"
             }} />
-            <p style={{ fontSize: "12px", marginTop: "5px" }}>{event.date}</p>
+            <p style={{
+              fontSize: "12px",
+              marginTop: "6px",
+              whiteSpace: "nowrap"
+            }}>{event.date}</p>
           </div>
         ))}
       </div>
