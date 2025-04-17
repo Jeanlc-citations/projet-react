@@ -6,8 +6,9 @@ function Accueil() {
   const [importantEvents, setImportantEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const parseDate = (str) => parseInt(str) || 0; // ✅ pour bien trier les dates
+  const parseDate = (str) => parseInt(str) || 0;
 
   useEffect(() => {
     const storedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -23,10 +24,11 @@ function Accueil() {
     const filtered = allEvents
       .filter(event => ["Facile", "Moyen"].includes(event.difficulty))
       .filter(event => (periodFilter ? event.period === periodFilter : true))
+      .filter(event => (showFavoritesOnly ? favorites.includes(event.id) : true))
       .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
     setImportantEvents(filtered);
-  }, [periodFilter, allEvents]);
+  }, [periodFilter, allEvents, favorites, showFavoritesOnly]);
 
   const toggleFavorite = (eventId) => {
     let updated;
@@ -47,10 +49,15 @@ function Accueil() {
 
   return (
     <div>
-      <h2>Frise Chronologique</h2>
-
-      {/* Filtres */}
-      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+      <h1 style={{ textAlign: "center", marginTop: "1rem" }}>
+        Histoire de dates : le site pour apprendre l'Histoire de France
+      </h1>
+      <p style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto", fontSize: "1.1rem" }}>
+        Histoire de dates c'est LE site pour apprendre les dates de l'Histoire de France tout en s'amusant. C'est comme Assassin's Creed, sauf que vous apprenez vraiment des choses. Nous n'avons qu'une promesse : vous permettre d'impressionner votre crush en date avec les dates de l'Histoire.
+      </p>
+    <br></br>
+      {/* Filtres et actions */}
+      <div style={{ textAlign: "center", margin: "1.5rem 0" }}>
         <label>
           Période :
           <select onChange={(e) => setPeriodFilter(e.target.value)} style={{ marginLeft: "8px" }}>
@@ -68,9 +75,16 @@ function Accueil() {
         <button onClick={pickRandomEvent} style={{ marginLeft: "1rem" }}>
           Événement au hasard 🎲
         </button>
+
+        <button
+          onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+          style={{ marginLeft: "1rem" }}
+        >
+          {showFavoritesOnly ? "Voir tous les événements 📜" : "Voir les favoris ❤️"}
+        </button>
       </div>
 
-      {/* FRISE AMÉLIORÉE */}
+      {/* Frise chronologique */}
       <div style={{
         position: "relative",
         display: "flex",
@@ -79,7 +93,7 @@ function Accueil() {
         padding: "2rem 1rem",
         margin: "1rem auto",
         maxWidth: "100%",
-        borderTop: "3px solid #b59144", // ligne principale
+        borderTop: "3px solid #b59144",
         gap: "40px"
       }}>
         {importantEvents.map(event => (
@@ -100,8 +114,7 @@ function Accueil() {
               border: "2px solid #fff",
               borderRadius: "50%",
               boxShadow: "0 0 5px rgba(0,0,0,0.2)",
-              margin: "0 auto",
-              transition: "transform 0.2s"
+              margin: "0 auto"
             }} />
             <p style={{
               fontSize: "12px",
@@ -112,7 +125,7 @@ function Accueil() {
         ))}
       </div>
 
-      {/* MODAL FLASHCARD */}
+      {/* Modal d'affichage de l'événement */}
       {selectedEvent && (
         <div style={{
           position: "fixed",

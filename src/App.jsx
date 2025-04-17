@@ -9,16 +9,21 @@ import "./components/style.css";
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Accueil />} />
-        <Route path="/dates" element={<Dates />} />
-        <Route path="/quiz" element={<Quiz />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <div className="page-container">
+      <Router>
+        <Header />
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Accueil />} />
+            <Route path="/dates" element={<Dates />} />
+            <Route path="/quiz" element={<Quiz />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </div>
   );
 }
+
 
 export default App;

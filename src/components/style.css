@@ -1,6 +1,23 @@
 /* === TYPOGRAPHIE & FOND GLOBAL === */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1; /* pousse le footer vers le bas */
+}
+
+
 body {
   font-family: 'EB Garamond', serif;
   background-color: #fef9f0;
@@ -17,6 +34,11 @@ h1, h2, h3 {
   text-align: center;
   color: #5c2a29;
 }
+
+.main-title {
+  text-align: center;
+  color: #ffbf4d;
+} 
 
 /* === FLASHCARDS === */
 .flashcards-container {
