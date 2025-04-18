@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header>
-      <h1 class="main-title">Histoire de France</h1>
+      <h1 class="main-title">Histoire de Dates</h1>
       <nav>
         <ul>
           <li><Link to="/">Accueil</Link></li>
