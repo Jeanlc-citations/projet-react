@@ -29,7 +29,7 @@ body {
   color: #2e2e2e;
 }
 
-/* typographie titres */
+/* typographie des titres */
 h1, h2, h3 {
   text-align: center;
   color: #5c2a29;
@@ -196,7 +196,7 @@ button:hover {
 }
 
 
-/* header */
+/* header  */
 header {
   background-color: #5c2a29;
   color: #fff;

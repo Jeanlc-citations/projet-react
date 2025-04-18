@@ -1,5 +1,3 @@
-
-
 [   
     { "id": 1, "date": "-600", "title": "Fondation de Massalia", "description": "Les Grecs de Phocée fondent la cité de Massalia (Marseille).", "image": "/images/massilia.png", "period": "Antiquité", "difficulty": "Difficile" },
     { "id": 2, "date": "-390", "title": "Sac de Brennus à Rome", "description": "Les Gaulois menés par Brennus pillent Rome.", "image": "/images/brennus.jpg", "period": "Antiquité", "difficulty": "Difficile" },
