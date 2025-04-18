@@ -85,7 +85,7 @@ function Quiz() {
     .sort(() => 0.5 - Math.random());
 
   return (
-    <div className="quiz-container" style={{
+    <div className="quiz-container fade-in" style={{
       maxWidth: "600px",
       margin: "auto",
       marginTop: "40px",
